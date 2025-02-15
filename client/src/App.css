@@ -1,0 +1,165 @@
+/* App.css */
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  box-sizing: border-box;
+  min-height: 100vh;
+}
+
+/* Style the header */
+.App h1 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+}
+
+/* Example styling for the Chat component container */
+/* Chat container now uses flex layout */
+.chat-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 800px;
+  flex-grow: 1;
+  border: 1px solid #ccc;
+  padding: 20px;
+  box-sizing: border-box;
+  background: #fafafa;
+  /* Optionally, set an overall height if needed */
+  height: 600px; /* Adjust or remove this if you want it to auto-size */
+}
+
+/* Remove fixed height and allow flex-grow so that the chat window takes available space */
+.chat-window {
+  flex-grow: 1;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .App {
+    padding: 10px;
+  }
+
+  .App h1 {
+    font-size: 2rem;
+  }
+
+  .chat-container {
+    padding: 15px;
+  }
+}
+
+.chat-window {
+  height: 400px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.message {
+  margin-bottom: 10px;
+  padding: 8px;
+  border-radius: 4px;
+}
+
+.message.user {
+  background-color: #e0f7fa;
+  text-align: right;
+}
+
+.message.bot {
+  background-color: #f1f8e9;
+  text-align: left;
+}
+
+.message pre {
+  text-align: left;
+  margin: 10px 0;
+  overflow-x: auto;
+  background: #f5f5f5;
+  border-radius: 4px;
+}
+
+.message code {
+  font-family: 'Courier New', Courier, monospace;
+  background: #f5f5f5;
+  padding: 2px 4px;
+  border-radius: 3px;
+  font-size: 0.9em;
+}
+
+.message p {
+  margin: 0 0 10px 0;
+}
+
+.message ul, .message ol {
+  text-align: left;
+  margin: 10px 0;
+  padding-left: 20px;
+}
+
+.input-area {
+  display: flex;
+}
+
+.input-area input {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.input-area button {
+  padding: 10px;
+  margin-left: 10px;
+  background-color: #4caf50;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* Markdown specific styles */
+.message h1, .message h2, .message h3 {
+  text-align: left;
+  margin: 15px 0;
+}
+
+.message blockquote {
+  border-left: 3px solid #ddd;
+  margin: 10px 0;
+  padding-left: 10px;
+  color: #666;
+  text-align: left;
+}
+
+.message table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 10px 0;
+}
+
+.message table th,
+.message table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.message table th {
+  background-color: #f5f5f5;
+}
+
+/* Loading animation style */
+.loading {
+  font-style: italic;
+  color: gray;
+}
