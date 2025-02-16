@@ -1,10 +1,24 @@
 import { ChevronDoubleLeftIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import useChatStore from '../store/chatStore'
 import { useAuthStore } from '../store/authStore' // import auth user
+import { useState } from 'react'
 
 export default function Sidebar({ isCollapsed, setIsCollapsed }) {
   const { chats, currentChatId, loadChat, newChat, deleteChat } = useChatStore()
   const { user } = useAuthStore() // get the authenticated user
+
+  // Updated "New Chat" onClick to async
+  const handleNewChat = async () => {
+    const chatId = await newChat()
+    if (chatId) {
+      await loadChat(chatId)
+    }
+  }
+
+  // Updated "Load Chat" onClick to async
+  const handleLoadChat = async (chatId) => {
+    await loadChat(chatId)
+  }
 
   return (
     <div className="h-full flex flex-col relative">
@@ -32,10 +46,7 @@ export default function Sidebar({ isCollapsed, setIsCollapsed }) {
         <>
           <div className="p-4 border-b border-gray-700">
             <button
-              onClick={() => {
-                const chatId = newChat()
-                loadChat(chatId)
-              }}
+              onClick={handleNewChat}
               className="w-full bg-accent hover:bg-opacity-80 text-primary
                          rounded-lg p-3 transition-all flex items-center gap-2"
             >
@@ -62,11 +73,12 @@ export default function Sidebar({ isCollapsed, setIsCollapsed }) {
                 {/* Clicking here loads the chat */}
                 <div
                   className="cursor-pointer pr-6"
-                  onClick={() => loadChat(chat.id)}
+                  onClick={() => handleLoadChat(chat.id)}
                 >
                   {chat.title}
                   <div className="text-xs text-gray-400">
-                    {new Date(chat.timestamp).toLocaleString()}
+                    {/* If your backend returns created_at or updated_at: */}
+                    {chat.created_at ? new Date(chat.created_at).toLocaleString() : ''}
                   </div>
                 </div>
 

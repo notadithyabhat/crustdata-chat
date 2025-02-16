@@ -17,7 +17,10 @@ const chatHistoryRoutes = require('./routes/chatHistory');
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-app.use(cors());
+app.use(cors({
+  origin: 'http://localhost:3001', // or your client's URL
+  credentials: true
+}));
 app.use(bodyParser.json());
 
 // Session middleware
@@ -34,7 +37,7 @@ app.use(
       maxAge: 7 * 24 * 60 * 60 * 1000,
       secure: process.env.NODE_ENV === 'production',
       httpOnly: true,
-      sameSite: 'strict',
+      sameSite: 'lax',
     },
   })
 );

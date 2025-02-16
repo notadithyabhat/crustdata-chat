@@ -38,8 +38,13 @@ router.post(
         [name, email, hashedPassword]
       );
 
-      // Store userId in the session
-      req.session.userId = newUser.rows[0].id;
+      // Store the entire user object in session
+      req.session.user = {
+        id: newUser.rows[0].id,
+        name: newUser.rows[0].name,
+        email: newUser.rows[0].email,
+      };
+
       return res.status(201).json(newUser.rows[0]);
     } catch (err) {
       console.error(err);
@@ -74,8 +79,13 @@ router.post(
         return res.status(401).json({ message: 'Invalid credentials' });
       }
 
-      // Store userId in session
-      req.session.userId = user.id;
+      // Store the entire user object in session
+      req.session.user = {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+      };
+
       return res.json({
         id: user.id,
         name: user.name,
@@ -102,15 +112,13 @@ router.post('/logout', (req, res) => {
 // Get Current User
 router.get('/me', async (req, res) => {
   try {
-    // If user is not logged in, return 401 or null
-    if (!req.session.userId) {
+    if (!req.session.user) {
       return res.status(401).json(null);
     }
+    const { id } = req.session.user;
 
-    // Fetch user by session ID
-    const result = await pool.query('SELECT id, name, email FROM users WHERE id = $1', [
-      req.session.userId,
-    ]);
+    // Fetch user by ID
+    const result = await pool.query('SELECT id, name, email FROM users WHERE id = $1', [id]);
     return res.json(result.rows[0]);
   } catch (err) {
     console.error(err);

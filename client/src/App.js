@@ -16,13 +16,13 @@ export default function App() {
         <p className="mb-8 text-white">Please sign in or sign up to continue</p>
         <div className="flex items-center space-x-4">
           <AuthButton />
-          <span className="text-white">or</span>
+          {/* <span className="text-white">or</span>
           <button
             onClick={continueAsGuest}
             className="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg transition-colors"
           >
             Continue as Guest
-          </button>
+          </button> */}
         </div>
       </div>
     );

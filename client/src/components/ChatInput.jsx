@@ -1,38 +1,36 @@
-import React, { useRef } from 'react'
-import { PaperAirplaneIcon } from '@heroicons/react/24/solid'
+// client/src/components/ChatInput.jsx
+import React, { useRef } from 'react';
+import { PaperAirplaneIcon } from '@heroicons/react/24/solid';
 
 const ChatInput = ({
   message,
   setMessage,
   sendMessage,
   isLoading,
-  handleKeyPress,
-  isNewChat = false // new prop; defaults to false
+  handleKeyPress, // now used on onKeyDown
+  isNewChat = false
 }) => {
-  const textAreaRef = useRef(null)
+  const textAreaRef = useRef(null);
 
   const handleChange = (e) => {
-    setMessage(e.target.value)
+    setMessage(e.target.value);
     if (textAreaRef.current) {
-      textAreaRef.current.style.height = 'auto'
-      textAreaRef.current.style.height = textAreaRef.current.scrollHeight + 'px'
+      textAreaRef.current.style.height = 'auto';
+      textAreaRef.current.style.height = textAreaRef.current.scrollHeight + 'px';
     }
-  }
+  };
 
-  // We'll only attach an onClick container if not centered
-  // (In center mode, the entire container is effectively the input anyway.)
   const handleContainerClick = () => {
     if (textAreaRef.current) {
-      textAreaRef.current.focus()
+      textAreaRef.current.focus();
     }
-  }
+  };
 
-  // If it's a new chat, we can style differently (centered, bigger, shorter, etc.)
   if (isNewChat) {
+    // Centered input for brand-new chat
     return (
       <div className="w-full max-w-lg px-4">
         <h2 className="text-extrabold text-7xl text-white mb-12 text-left">CrustData Bot</h2>
-        {/* Centered single "big" input, similar to a search bar */}
         <div className="relative flex flex-col items-end">
           <textarea
             ref={textAreaRef}
@@ -40,7 +38,7 @@ const ChatInput = ({
             placeholder="Ask a question..."
             value={message}
             onChange={handleChange}
-            onKeyPress={handleKeyPress}
+            onKeyDown={handleKeyPress} // CHANGED to onKeyDown
             className="
               block w-full resize-none
               bg-accent text-white text-xl
@@ -65,10 +63,10 @@ const ChatInput = ({
           </button>
         </div>
       </div>
-    )
+    );
   }
 
-  // Regular bottom-anchored input
+  // Regular bottom input bar
   return (
     <div className="border-t border-gray-700 p-4 bg-secondary">
       <div className="max-w-5xl mx-auto flex items-start gap-2">
@@ -84,7 +82,7 @@ const ChatInput = ({
             placeholder="Ask a question..."
             value={message}
             onChange={handleChange}
-            onKeyPress={handleKeyPress}
+            onKeyDown={handleKeyPress} // CHANGED to onKeyDown
             className="
               block w-full min-h-[40px] max-h-40
               overflow-y-auto resize-none
@@ -95,7 +93,6 @@ const ChatInput = ({
             "
           />
         </div>
-
         <button
           onClick={sendMessage}
           className="
@@ -109,7 +106,7 @@ const ChatInput = ({
         </button>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default ChatInput
+export default ChatInput;
