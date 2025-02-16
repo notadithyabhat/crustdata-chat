@@ -47,6 +47,12 @@ export const useAuthStore = create(
           set({ error: 'Logout failed', loading: false });
         }
       },
+
+      // New action: allow guest usage without login
+      continueAsGuest: () =>
+        set({
+          user: { id: 'guest', name: 'Guest', email: '' },
+        }),
     }),
     {
       name: 'auth-storage', // Key in LocalStorage

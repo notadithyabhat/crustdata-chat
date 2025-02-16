@@ -14,7 +14,7 @@ export const LoginForm = ({ switchToSignup }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="bg-inherit">
       <InputField
         label="Email"
         type="email"
@@ -33,7 +33,7 @@ export const LoginForm = ({ switchToSignup }) => {
       <button
         type="submit"
         disabled={loading}
-        className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg transition-colors disabled:opacity-50"
+        className="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg transition-colors disabled:opacity-50"
       >
         {loading ? 'Signing In...' : 'Sign In'}
       </button>
@@ -42,7 +42,7 @@ export const LoginForm = ({ switchToSignup }) => {
         <button
           type="button"
           onClick={switchToSignup}
-          className="text-blue-600 hover:text-blue-700 text-sm"
+          className="text-white hover:text-white text-sm"
         >
           Don't have an account? Sign Up
         </button>

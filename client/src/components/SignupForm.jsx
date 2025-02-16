@@ -61,7 +61,7 @@ export const SignupForm = ({ switchToLogin }) => {
       <button
         type="submit"
         disabled={loading}
-        className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg transition-colors disabled:opacity-50"
+        className="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg transition-colors disabled:opacity-50"
       >
         {loading ? 'Creating Account...' : 'Sign Up'}
       </button>
@@ -70,7 +70,7 @@ export const SignupForm = ({ switchToLogin }) => {
         <button
           type="button"
           onClick={switchToLogin}
-          className="text-blue-600 hover:text-blue-700 text-sm"
+          className="text-white hover:text-white text-sm"
         >
           Already have an account? Sign In
         </button>
