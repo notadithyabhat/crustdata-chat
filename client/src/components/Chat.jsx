@@ -19,7 +19,7 @@ export default function Chat() {
     renameChat
   } = useChatStore()
 
-  // If we have no current chat, pick the first if available; otherwise newChat()
+  // If we have no current chat, pick the first if available; otherwise create a new one
   useEffect(() => {
     if (!currentChatId) {
       if (chats.length > 0) {
@@ -30,6 +30,8 @@ export default function Chat() {
       }
     }
   }, [currentChatId, chats, loadChat, newChat])
+
+  const activeChat = chats.find((c) => c.id === currentChatId)
 
   const sendMessage = async () => {
     if (!input.trim()) return
@@ -45,8 +47,7 @@ export default function Chat() {
     }
     addMessage(userMessage)
 
-    // If the chat is still named "New Chat," rename it to first ~30 chars of the user's question
-    const activeChat = chats.find((c) => c.id === currentChatId)
+    // If the chat is still "New Chat," rename to the first ~30 chars of the user's question
     if (activeChat && activeChat.title === 'New Chat') {
       const shortTitle = createShortTitle(input, 30)
       renameChat(currentChatId, shortTitle)
@@ -69,7 +70,6 @@ export default function Chat() {
         content: msg.text
       }))
 
-      // Example fetch to your backend
       const response = await fetch('/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -81,7 +81,7 @@ export default function Chat() {
 
       const data = await response.json()
 
-      // Update bot message with the real response
+      // Update the placeholder bot message
       updateMessage(botMessageId, {
         text: data.answer,
         isLoading: false
@@ -105,26 +105,55 @@ export default function Chat() {
     }
   }
 
+  // Check if this chat is brand-new (no messages yet)
+  const isNewChat = messages.length === 0
+
   return (
     <main className="flex-1 flex flex-col bg-gradient-to-b from-secondary to-accent overflow-hidden">
-      <div className="flex-1 overflow-y-auto h-full max-w-full p-4 space-y-4">
-        {messages.map((msg) => (
-          <ChatMessage
-            key={msg.id}
-            message={msg.text}
-            isBot={msg.isBot}
-            isLoading={msg.isLoading}
-          />
-        ))}
+      {/* Window Title */}
+      <div className="border-b border-gray-700 p-4 flex items-center justify-center">
+        <h2 className="text-xl font-bold text-white">
+          {activeChat ? activeChat.title : 'New Chat'}
+        </h2>
       </div>
 
-      <ChatInput
-        message={input}
-        setMessage={setInput}
-        sendMessage={sendMessage}
-        isLoading={isLoading}
-        handleKeyPress={handleKeyPress}
-      />
+      {isNewChat ? (
+        // For a brand-new chat: center a large input in the middle
+        <div className="flex-1 flex flex-col items-center justify-center">
+          <ChatInput
+            message={input}
+            setMessage={setInput}
+            sendMessage={sendMessage}
+            isLoading={isLoading}
+            handleKeyPress={handleKeyPress}
+            isNewChat // Pass a custom prop so ChatInput knows to style differently
+          />
+        </div>
+      ) : (
+        // Otherwise, show the normal chat layout
+        <>
+          {/* Messages */}
+          <div className="flex-1 overflow-y-auto h-full max-w-full p-4 space-y-4">
+            {messages.map((msg) => (
+              <ChatMessage
+                key={msg.id}
+                message={msg.text}
+                isBot={msg.isBot}
+                isLoading={msg.isLoading}
+              />
+            ))}
+          </div>
+
+          {/* Regular bottom input */}
+          <ChatInput
+            message={input}
+            setMessage={setInput}
+            sendMessage={sendMessage}
+            isLoading={isLoading}
+            handleKeyPress={handleKeyPress}
+          />
+        </>
+      )}
     </main>
   )
 }
@@ -133,5 +162,6 @@ export default function Chat() {
 function createShortTitle(text, maxLen = 30) {
   const trimmed = text.trim()
   if (trimmed.length <= maxLen) return trimmed
-  return trimmed.substring(0, maxLen) + '...'
+  // Also remove trailing whitespace before adding "..."
+  return trimmed.substring(0, maxLen).replace(/\s+$/, '') + '...'
 }
