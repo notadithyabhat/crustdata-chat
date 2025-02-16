@@ -4,11 +4,13 @@
   "private": true,
   "proxy": "http://localhost:5000",
   "dependencies": {
+    "@headlessui/react": "^2.2.0",
     "@heroicons/react": "^2.2.0",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.2.0",
     "@testing-library/user-event": "^13.5.0",
+    "axios": "^1.7.9",
     "framer-motion": "^12.4.3",
     "highlight.js": "^11.11.1",
     "marked": "^15.0.7",

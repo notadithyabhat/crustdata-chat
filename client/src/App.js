@@ -1,20 +1,27 @@
-import Sidebar from './components/Sidebar'
-import Chat from './components/Chat'
-
-import { useState } from 'react'
+import React, { useState } from 'react';
+import Sidebar from './components/Sidebar';
+import Chat from './components/Chat';
+import { useAuthStore } from './store/authStore';
+import { AuthButton } from './components/AuthButton';
 
 export default function App() {
-  // Track the collapsed state here
-  const [isCollapsed, setIsCollapsed] = useState(false)
+  const { user } = useAuthStore();
+  const [isCollapsed, setIsCollapsed] = useState(false);
+
+  if (!user) {
+    // Render a welcome screen prompting sign in/up when no user is logged in
+    return (
+      <div className="h-screen flex flex-col items-center justify-center bg-gray-100">
+        <h1 className="text-3xl font-bold mb-4">Welcome to the Chat App</h1>
+        <p className="mb-8">Please sign in or sign up to continue</p>
+        <AuthButton />
+      </div>
+    );
+  }
 
   return (
     <div className="h-screen flex overflow-hidden">
-      
-      {/* 
-        Sidebar: width changes based on isCollapsed 
-        flex-shrink-0 -> don't shrink beyond set width
-        transition-all + duration-300 -> smooth animation
-      */}
+      {/* Sidebar */}
       <aside
         className={`
           ${isCollapsed ? 'w-16' : 'w-64'} 
@@ -28,12 +35,14 @@ export default function App() {
         />
       </aside>
 
-      {/*
-        The Chat area will take all remaining space 
-        because it's a sibling in a flex container
-      */}
-      <Chat />
+      <div className="flex flex-col flex-1">
+        {/* Header with AuthButton for logout */}
+        <header className="p-4 bg-gray-800 flex justify-end">
+          <AuthButton />
+        </header>
+        {/* Main Chat area */}
+        <Chat />
+      </div>
     </div>
-  )
+  );
 }
-

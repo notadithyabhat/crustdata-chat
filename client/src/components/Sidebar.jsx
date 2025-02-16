@@ -1,8 +1,10 @@
 import { ChevronDoubleLeftIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import useChatStore from '../store/chatStore'
+import { useAuthStore } from '../store/authStore' // import auth user
 
 export default function Sidebar({ isCollapsed, setIsCollapsed }) {
   const { chats, currentChatId, loadChat, newChat, deleteChat } = useChatStore()
+  const { user } = useAuthStore() // get the authenticated user
 
   return (
     <div className="h-full flex flex-col relative">
@@ -87,7 +89,9 @@ export default function Sidebar({ isCollapsed, setIsCollapsed }) {
           <div className="border-t border-gray-700 p-4 relative">
             <div className="absolute bottom-10 w-full flex items-center gap-3">
               <div className="w-8 h-8 rounded-full bg-primary"></div>
-              <div className="text-gray-200 text-sm">Guest User</div>
+              <div className="text-gray-200 text-sm">
+                {user && user.name ? user.name : 'Guest User'}
+              </div>
             </div>
           </div>
         </>

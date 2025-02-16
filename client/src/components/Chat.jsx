@@ -46,6 +46,7 @@ export default function Chat() {
       timestamp: new Date().toISOString()
     }
     addMessage(userMessage)
+    setInput('')
 
     // If the chat is still "New Chat," rename to the first ~30 chars of the user's question
     if (activeChat && activeChat.title === 'New Chat') {
@@ -95,8 +96,6 @@ export default function Chat() {
     } finally {
       setIsLoading(false)
     }
-
-    setInput('')
   }
 
   const handleKeyPress = (e) => {
