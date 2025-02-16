@@ -1,0 +1,50 @@
+/* styles.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .message-bubble {
+    @apply p-4 rounded-lg max-w-[80%] relative;
+    animation: message-in 0.3s ease-out;
+  }
+  
+  .chat-container {
+    @apply flex-1 flex flex-col overflow-hidden bg-secondary;
+  }
+
+  @keyframes message-in {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+@layer utilities {
+  .text-content-primary {
+    @apply text-[#ececf1];
+  }
+  
+  .text-content-secondary {
+    @apply text-[#8e8ea0];
+  }
+
+  .bg-primary {
+    @apply bg-[#10a37f];
+  }
+
+  .bg-secondary {
+    @apply bg-[#202123];
+  }
+
+  .bg-accent {
+    @apply bg-[#343541];
+  }
+}
+
+/* Rest of Tailwind-generated utilities... */

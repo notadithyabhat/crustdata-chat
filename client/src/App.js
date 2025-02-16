@@ -1,15 +1,26 @@
-// client/src/App.js
-import React from 'react';
-import Chat from './Chat';
-import './App.css';
+import Sidebar from './components/Sidebar'
+import Chat from './components/Chat'
 
-function App() {
+export default function App() {
   return (
-    <div className="App">
-      <h1>Crustdata Chat</h1>
+
+    <div className="h-screen flex overflow-hidden">
+
+      {/* 
+        Sidebar pinned on the left
+        w-64 => fixed width
+        flex-shrink-0 => don't shrink
+        bg-gray-800 => background
+      */}
+      <aside className="w-64 bg-gray-800 text-white flex-shrink-0">
+        <Sidebar />
+      </aside>
+
+      {/* 
+        The main Chat area
+        occupies remaining space (flex-1)
+      */}
       <Chat />
     </div>
-  );
+  )
 }
-
-export default App;

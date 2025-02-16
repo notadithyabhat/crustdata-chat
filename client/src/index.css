@@ -1,13 +1,24 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom styles */
+@layer components {
+  .message-bubble {
+    @apply p-4 rounded-lg max-w-[80%] relative;
+    animation: message-in 0.3s ease-out;
+  }
+  
+  .chat-container {
+    @apply flex-1 flex flex-col overflow-hidden bg-gradient-to-b from-secondary to-accent;
+  }
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+@layer utilities {
+  .text-primary {
+    @apply text-[#ececf1];
+  }
+  .bg-accent {
+    @apply bg-[#343541];
+  }
 }
