@@ -2,22 +2,18 @@ import React, { useRef } from 'react'
 import { PaperAirplaneIcon } from '@heroicons/react/24/solid'
 
 const ChatInput = ({ message, setMessage, sendMessage, isLoading, handleKeyPress }) => {
-  // Ref to dynamically resize the textarea and focus it on container clicks
   const textAreaRef = useRef(null)
 
-  // Automatically resize to fit content up to a maximum, then scroll
+  // Dynamically resize the textarea to fit content
   const handleChange = (e) => {
     setMessage(e.target.value)
-    
     if (textAreaRef.current) {
-      // Reset height to auto to measure correct scrollHeight
       textAreaRef.current.style.height = 'auto'
-      // Dynamically set the height based on scrollHeight
       textAreaRef.current.style.height = textAreaRef.current.scrollHeight + 'px'
     }
   }
 
-  // Make the entire container clickable to focus the text area
+  // Clicking the container focuses the text area
   const handleContainerClick = () => {
     if (textAreaRef.current) {
       textAreaRef.current.focus()
@@ -26,20 +22,12 @@ const ChatInput = ({ message, setMessage, sendMessage, isLoading, handleKeyPress
 
   return (
     <div className="border-t border-gray-700 p-4 bg-secondary">
-      {/* 
-        items-start so that the multiline textarea grows downward smoothly
-      */}
       <div className="max-w-5xl mx-auto flex items-start gap-2">
-        
-        {/* 
-          The clickable container. 
-          onClick => focuses the text area
-        */}
         <div
           className="relative flex-1 cursor-text"
           onClick={handleContainerClick}
           role="button"
-          tabIndex={0} // so it can be focusable for accessibility
+          tabIndex={0}
         >
           <textarea
             ref={textAreaRef}
@@ -50,7 +38,7 @@ const ChatInput = ({ message, setMessage, sendMessage, isLoading, handleKeyPress
             onKeyPress={handleKeyPress}
             className="block w-full min-h-[40px] max-h-40
                        overflow-y-auto resize-none
-                       bg-accent text-white  /* Ensures strong contrast */
+                       bg-accent text-white
                        rounded-lg p-4 focus:outline-none
                        focus:ring-2 focus:ring-primary
                        placeholder:text-text-secondary"

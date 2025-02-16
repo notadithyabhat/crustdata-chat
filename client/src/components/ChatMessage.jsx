@@ -29,11 +29,6 @@ export default function ChatMessage({ message, isBot = false, isLoading = false 
       animate={{ opacity: 1, y: 0 }}
       className={`flex w-full ${isBot ? 'justify-start' : 'justify-end'} mb-4 px-4`}
     >
-      {/* 
-        max-w-[60%] => each bubble can occupy up to 60% 
-                      of the container width
-        Additional classes for styling
-      */}
       <div
         className={`message-bubble max-w-[60%] p-3 rounded-lg
                     ${isBot ? 'bg-accent text-primary ml-2' : 'bg-primary text-white mr-2'}`}

@@ -1,6 +1,9 @@
-import { ChevronDoubleLeftIcon } from '@heroicons/react/24/outline'
+import { ChevronDoubleLeftIcon, XMarkIcon } from '@heroicons/react/24/outline'
+import useChatStore from '../store/chatStore'
 
 export default function Sidebar({ isCollapsed, setIsCollapsed }) {
+  const { chats, currentChatId, loadChat, newChat, deleteChat } = useChatStore()
+
   return (
     <div className="h-full flex flex-col relative">
       {/* Top bar with collapse/expand button */}
@@ -27,6 +30,10 @@ export default function Sidebar({ isCollapsed, setIsCollapsed }) {
         <>
           <div className="p-4 border-b border-gray-700">
             <button
+              onClick={() => {
+                const chatId = newChat()
+                loadChat(chatId)
+              }}
               className="w-full bg-accent hover:bg-opacity-80 text-primary
                          rounded-lg p-3 transition-all flex items-center gap-2"
             >
@@ -36,9 +43,45 @@ export default function Sidebar({ isCollapsed, setIsCollapsed }) {
           </div>
 
           <div className="flex-1 overflow-y-auto p-2">
-            <div className="text-gray-400 p-2 text-sm">
-              Chat history will appear here
-            </div>
+            {chats.length === 0 && (
+              <div className="text-gray-400 p-2 text-sm">
+                No chats found. Start by clicking "New Chat" above.
+              </div>
+            )}
+
+            {chats.map((chat) => (
+              <div
+                key={chat.id}
+                className={`
+                  p-2 rounded-lg hover:bg-gray-700 group relative
+                  ${chat.id === currentChatId ? 'bg-gray-600' : ''}
+                `}
+              >
+                {/* Clicking here loads the chat */}
+                <div
+                  className="cursor-pointer pr-6"
+                  onClick={() => loadChat(chat.id)}
+                >
+                  {chat.title}
+                  <div className="text-xs text-gray-400">
+                    {new Date(chat.timestamp).toLocaleString()}
+                  </div>
+                </div>
+
+                {/* The "X" delete button, shown on hover */}
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    deleteChat(chat.id)
+                  }}
+                  className="absolute right-2 top-2 hidden group-hover:block 
+                             text-sm text-gray-400 hover:text-white"
+                  title="Delete this chat"
+                >
+                  <XMarkIcon className="w-5 h-5" />
+                </button>
+              </div>
+            ))}
           </div>
 
           <div className="border-t border-gray-700 p-4 relative">
