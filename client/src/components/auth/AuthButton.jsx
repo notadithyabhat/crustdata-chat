@@ -1,6 +1,6 @@
 // client/src/components/AuthButton.jsx
 import React, { useState } from 'react'; // <-- ADD THIS
-import { useAuthStore } from '../store/authStore';
+import { useAuthStore } from '../../store/authStore';
 import { AuthModal } from './AuthModal';
 
 export const AuthButton = () => {

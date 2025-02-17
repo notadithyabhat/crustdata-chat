@@ -1,9 +1,8 @@
 import { ChevronDoubleLeftIcon, XMarkIcon } from '@heroicons/react/24/outline'
-import useChatStore from '../store/chatStore'
-import { useAuthStore } from '../store/authStore' // import auth user
-import { useState } from 'react'
+import useChatStore from '../../store/chatStore' // import chat store
+import { useAuthStore } from '../../store/authStore' // import auth user
 
-export default function Sidebar({ isCollapsed, setIsCollapsed }) {
+function Sidebar({ isCollapsed, setIsCollapsed }) {
   const { chats, currentChatId, loadChat, newChat, deleteChat } = useChatStore()
   const { user } = useAuthStore() // get the authenticated user
 
@@ -116,3 +115,5 @@ export default function Sidebar({ isCollapsed, setIsCollapsed }) {
     </div>
   )
 }
+
+export default Sidebar

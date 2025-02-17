@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import Sidebar from './components/Sidebar';
-import Chat from './components/Chat';
+import { Sidebar } from './components/layout'
+import Chat from './components/chat';
 import { useAuthStore } from './store/authStore';
-import { AuthButton } from './components/AuthButton';
+import { AuthButton } from './components/auth';
 
 export default function App() {
   const { user, continueAsGuest } = useAuthStore();

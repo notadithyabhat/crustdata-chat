@@ -1,6 +1,6 @@
 // client/src/components/LoginForm.jsx
 import React, { useState } from 'react';
-import { useAuthStore } from '../store/authStore';
+import { useAuthStore } from '../../store/authStore';
 import { InputField } from './InputField';
 
 export const LoginForm = ({ switchToSignup }) => {

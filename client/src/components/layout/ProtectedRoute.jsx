@@ -1,6 +1,6 @@
-// client/src/components/ProtectedRoute.jsx
+// client/src/components/layout/ProtectedRoute.jsx
 import React, { useEffect } from 'react';
-import { useAuthStore } from '../store/authStore';
+import { useAuthStore } from '../../store/authStore';
 import { useNavigate, Outlet } from 'react-router-dom';
 
 export const ProtectedRoute = () => {

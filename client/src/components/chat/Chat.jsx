@@ -1,6 +1,6 @@
 // client/src/components/Chat.jsx
 import { useState, useEffect } from 'react';
-import useChatStore from '../store/chatStore';
+import useChatStore from '../../store/chatStore';
 import ChatMessage from './ChatMessage';
 import ChatInput from './ChatInput';
 

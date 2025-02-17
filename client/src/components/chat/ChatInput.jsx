@@ -2,7 +2,7 @@
 import React, { useRef } from 'react';
 import { PaperAirplaneIcon } from '@heroicons/react/24/solid';
 
-const ChatInput = ({
+export const ChatInput = ({
   message,
   setMessage,
   sendMessage,
